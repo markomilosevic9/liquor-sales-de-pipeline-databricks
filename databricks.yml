@@ -1,0 +1,31 @@
+bundle:
+  name: iowa_liquor_sales
+
+workspace:
+  host: https://dbc-85e96614-60b9.cloud.databricks.com
+
+variables:
+  env:
+    default: dev
+    description: "Target env, controls which catalog all tables land in. Values: dev, qa, prod."
+
+targets:
+
+  dev:
+    mode: development
+    default: true       # databricks bundle deploy uses this target if --target is not specified
+    variables:
+      env: dev
+
+  qa:
+    mode: development
+    variables:
+      env: qa
+
+  prod:
+    mode: production    
+    variables:
+      env: prod
+
+include:
+  - resources/*.yml     

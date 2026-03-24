@@ -1,0 +1,46 @@
+resources:
+  pipelines:
+
+    bronze_pipeline:
+      name: bronze_pipeline_${var.env}
+      target: ${var.env}.bronze
+      catalog: ${var.env}
+      serverless: true
+      continuous: false
+      development: false
+      channel: current
+      libraries:
+        - notebook:
+            path: ../notebooks/02_bronze_auto_loader_dlt.ipynb
+
+    silver_pipeline:
+      name: silver_pipeline_${var.env}
+      target: ${var.env}.silver
+      catalog: ${var.env}
+      serverless: true
+      continuous: false
+      development: false
+      channel: current
+      libraries:
+        - notebook:
+            path: ../notebooks/04_silver_dlt.ipynb
+        - notebook:
+            path: ../notebooks/05_silver_scd2_dlt.ipynb
+
+    gold_pipeline:
+      name: gold_pipeline_${var.env}
+      target: ${var.env}.gold
+      catalog: ${var.env}
+      serverless: true
+      continuous: false
+      development: false
+      channel: current
+      libraries:
+        - notebook:
+            path: ../notebooks/06_gold_sales_trends_dlt.ipynb
+        - notebook:
+            path: ../notebooks/07_gold_geographic_dlt.ipynb
+        - notebook:
+            path: ../notebooks/08_gold_vendor_category_dlt.ipynb
+        - notebook:
+            path: ../notebooks/09_gold_store_performance_dlt.ipynb
