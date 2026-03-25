@@ -1,6 +1,6 @@
 bundle:
   name: iowa_liquor_sales
-
+  # CI/CD managed via GitHub actions - validate on pr + deploy on merge
 workspace:
   host: https://dbc-85e96614-60b9.cloud.databricks.com
 
