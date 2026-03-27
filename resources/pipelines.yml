@@ -11,7 +11,7 @@ resources:
       channel: current
       libraries:
         - notebook:
-            path: ../notebooks/02_bronze_auto_loader_dlt.ipynb
+            path: ../notebooks/02_bronze_auto_loader.ipynb
 
     silver_pipeline:
       name: silver_pipeline_${var.env}
@@ -23,9 +23,7 @@ resources:
       channel: current
       libraries:
         - notebook:
-            path: ../notebooks/04_silver_dlt.ipynb
-        - notebook:
-            path: ../notebooks/05_silver_scd2_dlt.ipynb
+            path: ../notebooks/04_silver_cleaned_sales.ipynb
 
     gold_pipeline:
       name: gold_pipeline_${var.env}
@@ -37,10 +35,10 @@ resources:
       channel: current
       libraries:
         - notebook:
-            path: ../notebooks/06_gold_sales_trends_dlt.ipynb
+            path: ../notebooks/06_gold_sales_trends.ipynb
         - notebook:
-            path: ../notebooks/07_gold_geographic_dlt.ipynb
+            path: ../notebooks/07_gold_geographic.ipynb
         - notebook:
-            path: ../notebooks/08_gold_vendor_category_dlt.ipynb
+            path: ../notebooks/08_gold_vendor_category.ipynb
         - notebook:
-            path: ../notebooks/09_gold_store_performance_dlt.ipynb
+            path: ../notebooks/09_gold_store_performance.ipynb

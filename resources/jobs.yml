@@ -24,7 +24,7 @@ resources:
             pipeline_id: ${resources.pipelines.bronze_pipeline.id}
           timeout_seconds: 1800
 
-        # task 3: dim_dates
+        # task 3: dim_dates (static calendar, run once)
         - task_key: dim_dates
           depends_on:
             - task_key: bronze_pipeline
@@ -34,7 +34,7 @@ resources:
               env: ${var.env}
           timeout_seconds: 300
 
-        # task 4: silver dlt pipeline
+        # task 4: silver pipeline (cleaned_sales only)
         - task_key: silver_pipeline
           depends_on:
             - task_key: dim_dates
@@ -42,15 +42,25 @@ resources:
             pipeline_id: ${resources.pipelines.silver_pipeline.id}
           timeout_seconds: 1800
 
-        # task 5: gold dlt pipeline
-        - task_key: gold_pipeline
+        # task 5: manual SCD 2 dimensions + fact load
+        - task_key: dims_and_facts
           depends_on:
             - task_key: silver_pipeline
+          notebook_task:
+            notebook_path: ../notebooks/05_silver_dims_and_facts.ipynb
+            base_parameters:
+              env: ${var.env}
+          timeout_seconds: 1800
+
+        # task 6: gold dlt pipeline (materialized views)
+        - task_key: gold_pipeline
+          depends_on:
+            - task_key: dims_and_facts
           pipeline_task:
             pipeline_id: ${resources.pipelines.gold_pipeline.id}
           timeout_seconds: 1800
 
-        # task 6: delta maintenance
+        # task 7: delta maintenance
         - task_key: delta_maintenance
           depends_on:
             - task_key: gold_pipeline
@@ -60,7 +70,7 @@ resources:
               env: ${var.env}
           timeout_seconds: 900
 
-        # task 7: data quality check
+        # task 8: data quality check
         - task_key: quality_check
           depends_on:
             - task_key: delta_maintenance
