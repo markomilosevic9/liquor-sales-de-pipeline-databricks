@@ -9,6 +9,8 @@ resources:
       continuous: false
       development: false
       channel: current
+      configuration:
+        source_catalog: ${var.env}
       libraries:
         - notebook:
             path: ../notebooks/02_bronze_auto_loader.ipynb
@@ -21,6 +23,8 @@ resources:
       continuous: false
       development: false
       channel: current
+      configuration:
+        source_catalog: ${var.env}
       libraries:
         - notebook:
             path: ../notebooks/04_silver_cleaned_sales.ipynb
@@ -33,6 +37,8 @@ resources:
       continuous: false
       development: false
       channel: current
+      configuration:
+        source_catalog: ${var.env}
       libraries:
         - notebook:
             path: ../notebooks/06_gold_sales_trends.ipynb
